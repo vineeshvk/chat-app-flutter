@@ -16,7 +16,7 @@ It's a fully functional and secure cross platform chat application built using f
 
 ## Release
 
-> Download the [chap.apk]() for android
+> Download the [chap.apk](https://github.com/vineeshvk/chat-app-flutter/releases/download/1.0/Chat-flutter.apk) for android
 
 ## Screenshots
 

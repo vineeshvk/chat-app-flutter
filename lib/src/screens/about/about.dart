@@ -98,9 +98,8 @@ class AboutScreen extends StatelessWidget {
           icon: Icon(Icons.link),
           label: Text("Github"),
           onPressed: () {
-            launchURL("github.com/vineeshvk/chat-app-client");
+            launchURL("github.com/vineeshvk/chat-app-flutter");
           },
-          /* TODO: add the github link */
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
