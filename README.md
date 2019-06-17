@@ -6,9 +6,9 @@ It's a fully functional and secure cross platform chat application built using f
 
 ## Contributors
 
-[Vineesh](github.com/vineeshvk) (me) - **Front-end and Back-end developer**
+[Vineesh](https://www.github.com/vineeshvk) (me) - **Front-end and Back-end developer**
 
-[Roshan G Rahman](github.com/roshanrahman) - **Designer**
+[Roshan G Rahman](https://www.github.com/roshanrahman) - **UI Designer**
 
 ## Server
 
