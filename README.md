@@ -12,7 +12,7 @@ It's a fully functional and secure cross platform chat application built using f
 
 ## Server
 
-[Chat app server](http://github.com/chat-app-server) is the used as the backend for this app.
+[Chat app server](http://github.com/vineeshvk/chat-app-server) is the used as the backend for this app.
 
 ## Release
 
