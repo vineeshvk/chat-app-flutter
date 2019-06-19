@@ -43,7 +43,7 @@ It's a fully functional and secure cross platform chat application built using f
 
 ## How to run
 
-First go and setup the [server](github.com/chat-app-server) for the chat app
+First go and setup the [server](http://github.com/vineeshvk/chat-app-server) for the chat app
 ```
 flutter packages get
 ```
