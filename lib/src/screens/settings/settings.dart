@@ -78,14 +78,14 @@ class SettingScreen extends StatelessWidget {
     return Query(
       options: QueryOptions(
         pollInterval: 5,
-        document: meQuery,
+        documentNode: gql(meQuery),
         context: {
           'headers': <String, String>{
             'Authorization': 'Bearer ${appState.token}',
           },
         },
       ),
-      builder: (res, {refetch}) {
+      builder: (res, {refetch, fetchMore}) {
         var data = {};
         if (res.data != null) data = res.data["me"] ?? {};
         return renameMutationComponent(context, data, appState);
@@ -96,7 +96,7 @@ class SettingScreen extends StatelessWidget {
   Widget renameMutationComponent(context, Map name, appState) {
     return Mutation(
       options: MutationOptions(
-        document: renameUserMutation,
+        documentNode: gql(renameUserMutation),
         context: {
           'headers': <String, String>{
             'Authorization': 'Bearer ${appState.token}',
@@ -143,18 +143,21 @@ class SettingScreen extends StatelessWidget {
 
   Widget deleteUserMutationComponent(context, appState) {
     return Mutation(
-      options: MutationOptions(context: {
-        'headers': <String, String>{
-          'Authorization': 'Bearer ${appState.token}',
+      options: MutationOptions(
+        documentNode: gql(deleteUserMutation),
+        context: {
+          'headers': <String, String>{
+            'Authorization': 'Bearer ${appState.token}',
+          },
         },
-      }, document: deleteUserMutation),
+        onCompleted: (result) async {
+          if (result != null) {
+            await resetApp(appState, context);
+          }
+        },
+      ),
       builder: (runMutation, result) {
         return deleteItemComponent(context, runMutation);
-      },
-      onCompleted: (result) async {
-        if (result != null) {
-          await resetApp(appState, context);
-        }
       },
     );
   }

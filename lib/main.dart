@@ -4,11 +4,12 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var token = prefs.getString('token');
 
   HttpLink httpLink = HttpLink(uri: 'https://chapserver.herokuapp.com/');
-
 
   Link link = httpLink as Link;
 
@@ -16,6 +17,5 @@ main() async {
     GraphQLClient(cache: InMemoryCache(), link: link),
   );
 
-
-  runApp(App(auth: token != null, client: client ));
+  runApp(App(auth: token != null, client: client));
 }

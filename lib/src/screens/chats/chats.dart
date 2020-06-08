@@ -56,7 +56,7 @@ class ChatListScreen extends StatelessWidget {
 
     return Query(
       options: QueryOptions(
-        document: getChatsQuery,
+        documentNode: gql(getChatsQuery),
         fetchPolicy: FetchPolicy.cacheAndNetwork,
         pollInterval: 15,
         context: {
@@ -65,15 +65,16 @@ class ChatListScreen extends StatelessWidget {
           },
         },
       ),
-      builder: (result, {refetch}) {
+      builder: (result, {refetch, fetchMore}) {
         if (result.loading) return Center(child: CupertinoActivityIndicator());
-        if (result.hasErrors)
+        if (result.hasException)
           return Center(child: Text("Oops something went wrong"));
 
         if (result.data != null && result.data['getChats'] != null) {
           var chatList = ChatListModel.fromJson(result.data['getChats']);
           return chatListComponent(chatList.chats ?? []);
         }
+        return Container();
       },
     );
   }

@@ -137,11 +137,15 @@ class _UserListScreenState extends State<UserListScreen> {
 
     return Mutation(
       options: MutationOptions(
-        document: createChatMutation,
+        documentNode: gql(createChatMutation),
         context: {
           'headers': <String, String>{
             'Authorization': 'Bearer ${appState.token}',
           },
+        },
+        update: (Cache cache, QueryResult result) => cache,
+        onCompleted: (result) {
+          Navigator.pop(context);
         },
       ),
       builder: (runMutation, result) {
@@ -156,10 +160,6 @@ class _UserListScreenState extends State<UserListScreen> {
                 },
           primary: true,
         );
-      },
-      update: (Cache cache, QueryResult result) => cache,
-      onCompleted: (result) {
-        Navigator.pop(context);
       },
     );
   }
@@ -191,7 +191,7 @@ class _UserListScreenState extends State<UserListScreen> {
 
     return Query(
       options: QueryOptions(
-        document: getUserQuery,
+        documentNode: gql(getUserQuery),
         pollInterval: 10,
         context: {
           'headers': <String, String>{
@@ -199,7 +199,7 @@ class _UserListScreenState extends State<UserListScreen> {
           },
         },
       ),
-      builder: (result, {refetch}) {
+      builder: (result, {refetch, fetchMore}) {
         if (result.data != null && !result.loading) {
           List<dynamic> userData = result.data['getUsers']['users'];
           var users = UsersModel.fromJson(userData);

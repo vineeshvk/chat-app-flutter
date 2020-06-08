@@ -132,36 +132,36 @@ class _AuthViewsState extends State<AuthViews> {
     final appState = Provider.of<AppState>(context);
 
     return Mutation(
-      update: (Cache cache, QueryResult result) => cache,
       builder: (run, result) => gradientButtonComponent(run, result),
       options: MutationOptions(
-        document: widget.signup ? signupMutation : signinMutation,
-      ),
-      onCompleted: (result) async {
-        final response = AuthModel.fromJson(
-          result[widget.signup ? 'register' : 'login'],
-        );
-
-        if (response.error == null && response.token != null) {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setString("uid", response.id);
-          await prefs.setString("token", response.token);
-
-          appState.setToken(response.token);
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChatListScreen(),
-            ),
+        update: (Cache cache, QueryResult result) => cache,
+        documentNode: gql(widget.signup ? signupMutation : signinMutation),
+        onCompleted: (result) async {
+          final response = AuthModel.fromJson(
+            result[widget.signup ? 'register' : 'login'],
           );
-        }
-        if (response.error != null) {
-          setState(() {
-            errorText = response.error.message ?? "";
-          });
-        }
-      },
+
+          if (response.error == null && response.token != null) {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString("uid", response.id);
+            await prefs.setString("token", response.token);
+
+            appState.setToken(response.token);
+
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatListScreen(),
+              ),
+            );
+          }
+          if (response.error != null) {
+            setState(() {
+              errorText = response.error.message ?? "";
+            });
+          }
+        },
+      ),
     );
   }
 

@@ -95,11 +95,14 @@ class MessageScreen extends StatelessWidget {
 
     return Mutation(
       options: MutationOptions(
-        document: deleteChatMutation,
+        documentNode: gql(deleteChatMutation),
         context: {
           'headers': <String, String>{
             'Authorization': 'Bearer ${appState.token}',
           }
+        },
+        onCompleted: (result) {
+          Navigator.pop(context);
         },
       ),
       builder: (runMutation, result) {
@@ -111,9 +114,6 @@ class MessageScreen extends StatelessWidget {
           itemBuilder: (ctx) =>
               [PopupMenuItem(child: Text("Delete Chat"), value: "delete")],
         );
-      },
-      onCompleted: (result) {
-        Navigator.pop(context);
       },
     );
   }
@@ -137,7 +137,7 @@ class MessageScreen extends StatelessWidget {
 
     return Query(
       options: QueryOptions(
-        document: getMessagesQuery,
+        documentNode: gql(getMessagesQuery),
         fetchPolicy: FetchPolicy.cacheFirst,
         pollInterval: 3,
         variables: {'chatId': chatDetails.id},
@@ -147,7 +147,7 @@ class MessageScreen extends StatelessWidget {
           },
         },
       ),
-      builder: (result, {refetch}) {
+      builder: (result, {refetch, fetchMore}) {
         _refetch = refetch;
         if (result.data != null &&
             !result.loading &&
@@ -256,12 +256,12 @@ class MessageScreen extends StatelessWidget {
     final appState = Provider.of<AppState>(context);
 
     return Mutation(
-      onCompleted: (result) {
-        _refetch();
-      },
       builder: (runMutation, result) => sendButton(runMutation, result),
       options: MutationOptions(
-        document: createMessageMutation,
+        documentNode: gql(createMessageMutation),
+        onCompleted: (result) {
+          _refetch();
+        },
         context: {
           'headers': <String, String>{
             'Authorization': 'Bearer ${appState.token}',
