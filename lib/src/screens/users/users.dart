@@ -225,7 +225,7 @@ class _UserListScreenState extends State<UserListScreen> {
 
   List<UserModel> searchItem(UsersModel list) {
     final usersList = list.users;
-    if (searchItem == "") return usersList;
+    if (searchText == "") return usersList;
 
     final filteredList = list.users.where(
       (user) => user.name.toLowerCase().contains(

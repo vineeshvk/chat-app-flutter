@@ -138,7 +138,7 @@ class MessageScreen extends StatelessWidget {
     return Query(
       options: QueryOptions(
         documentNode: gql(getMessagesQuery),
-        fetchPolicy: FetchPolicy.cacheFirst,
+        fetchPolicy: FetchPolicy.cacheAndNetwork,
         pollInterval: 3,
         variables: {'chatId': chatDetails.id},
         context: {
