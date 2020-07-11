@@ -4,7 +4,7 @@
 
 It's a fully functional and secure cross platform chat application built using flutter and uses a graphql server that acts as an interface between the Database and the client.
 
-## Sponser
+## Sponsor
 
 chat-app-flutter is being sponsored by the following tool; please help to support us by taking a look and signing up to a free trial
 
