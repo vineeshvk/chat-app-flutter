@@ -1,6 +1,6 @@
 <img src=assets/icon/logo.png width=80>
 
-# Chap Client
+# Chap Client - Amazing Chatting Application
 
 It's a fully functional and secure cross platform chat application built using flutter and uses a graphql server that acts as an interface between the Database and the client.
 
